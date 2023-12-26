@@ -8,8 +8,8 @@ import streamlit as st
 
 from datetime import date
 
-# import matplotlib as mpl
-# import seaborn as sns
+import matplotlib as mpl
+import seaborn as sns
 
 import numpy as np
 import pandas as pd
@@ -18,7 +18,7 @@ import pandas as pd
 # In[21]:
 
 
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 
 # In[22]:
