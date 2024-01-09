@@ -155,8 +155,8 @@ def stock_day_arhiv(cod, data_start = '2013-01-01'):
 # In[7]:
 
 
-for i in stock:
-    stock_day_arhiv(cod = i).to_csv(f'{i}_day.csv', index = True)
+#for i in stock:
+    #stock_day_arhiv(cod = i).to_csv(f'{i}_day.csv', index = True)
 
 
 # ###  ЧАС
@@ -214,8 +214,8 @@ def stock_hour_arhiv(cod, data_start = '2017-01-01'):
 # In[11]:
 
 
-for i in stock:
-    stock_hour_arhiv(cod = i).to_csv(f'{i}_hour.csv', index = True)
+#for i in stock:
+    #stock_hour_arhiv(cod = i).to_csv(f'{i}_hour.csv', index = True)
 
 
 # ###  1 минута
@@ -273,8 +273,8 @@ def stock_min_arhiv(cod, data_start = '2023-01-01'):
 # In[4]:
 
 
-for i in stock:
-    stock_min_arhiv(cod = i).to_csv(f'{i}_min.csv', index = True)
+#for i in stock:
+    #stock_min_arhiv(cod = i).to_csv(f'{i}_min.csv', index = True)
 
 
 
