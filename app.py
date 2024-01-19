@@ -180,7 +180,7 @@ def plot_raw_data(quotes, selected_stock):
         qf.add_bollinger_bands(periods=15, boll_std=2)
         qf.add_rsi(periods=14,showbands=False)
         fig = qf.iplot(asFigure=True)
-        pio.write_image(fig, f'{selected_stock} Rate.png')
+        # pio.write_image(fig, f'{selected_stock} Rate.png')
         st.plotly_chart(fig)
         
         
