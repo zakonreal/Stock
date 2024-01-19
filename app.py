@@ -31,7 +31,8 @@ from prophet.plot import plot_plotly
 # In[ ]:
 
 
-stocks = ['GAZP', 'ROSN', 'SBERP', 'RTKMP', 'MOEX']
+# stocks = ['GAZP', 'ROSN', 'SBERP', 'RTKMP', 'MOEX']
+stocks = ['GAZP', 'SBERP']
 
 
 # In[ ]:
