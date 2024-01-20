@@ -397,8 +397,8 @@ if button_c:
 
         future = m.make_future_dataframe(periods=period)
         forecast = m.predict(future)
-        
-        if day.today().weekday() in [5,6]: future_1 = m.make_future_dataframe(periods=3)
+        d = day.today()
+        if d.weekday() in [5,6]: future_1 = m.make_future_dataframe(periods=3)
         else: future_1 = m.make_future_dataframe(periods=1)
         forecast_1 = m.predict(future_1)
 
