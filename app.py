@@ -198,7 +198,7 @@ b_clicked = st.button("↻")
 if b_clicked == False:
     to = date.today()
     if to.weekday() in [5,6]:
-        st.write(date1.tail(1))
+        st.write(data1.tail(1))
     else:
         sto = stock_min_now(selected_stock)
         sto['Delta'] = sto['CLOSE'].diff()
@@ -206,7 +206,7 @@ if b_clicked == False:
         st.write(sto.tail(1))
 else:
     if to.weekday() in [5,6]:
-        st.write(date1.tail(1))
+        st.write(data1.tail(1))
     else:
         sto = stock_min_now(selected_stock)
         sto['Delta'] = sto['CLOSE'].diff()
