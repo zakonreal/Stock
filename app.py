@@ -196,28 +196,24 @@ def stock_min_now(cod):
 st.write("✔️ Now Stock")
 b_clicked = st.button("↻")
 if b_clicked == False:
-    to = date.today()
-    if to.weekday() in [5,6]:
-            data11 = get_data1(selected_stock)
-            data12 = data11[['CLOSE']]
-            st.write(data12.tail(1))
-    else:
+    try:
             sto = stock_min_now(selected_stock)
             sto['Delta'] = sto['CLOSE'].diff()
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
-else:
-     tot = date.today()
-     if tot.weekday() in [5,6]:
-            data11 = get_data1(selected_stock)
-            data12 = data11[['CLOSE']]
-            st.write(data12.tail(1))
-     else:
-            sto = stock_min_now(selected_stock)
-            sto['Delta'] = sto['CLOSE'].diff()
-            sto['%'] = sto['CLOSE'].pct_change().round(3)
-            st.write(sto.tail(1))
+    except:
+            data11 = get_data1(selected_stock)[['CLOSE']]
+            st.write(data11.tail(1))
 
+if b_clicked == True:
+    try:
+            sto = stock_min_now(selected_stock)
+            sto['Delta'] = sto['CLOSE'].diff()
+            sto['%'] = sto['CLOSE'].pct_change().round(3)
+            st.write(sto.tail(1))
+    except:
+            data11 = get_data1(selected_stock)[['CLOSE']]
+            st.write(data11.tail(1))
 
 # In[ ]:
 
