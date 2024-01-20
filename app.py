@@ -197,7 +197,7 @@ st.write("✔️ Now Stock")
 b_clicked = st.button("↻")
 if b_clicked == False:
     to = date.today()
-    if to in [5,6]:
+    if to.weekday() in [5,6]:
         st.write(date1.tail(1))
     else:
         sto = stock_min_now(selected_stock)
@@ -205,7 +205,7 @@ if b_clicked == False:
         sto['%'] = sto['CLOSE'].pct_change().round(3)
         st.write(sto.tail(1))
 else:
-    if to in [5,6]:
+    if to.weekday() in [5,6]:
         st.write(date1.tail(1))
     else:
         sto = stock_min_now(selected_stock)
