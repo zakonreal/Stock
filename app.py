@@ -202,18 +202,22 @@ if b_clicked == False:
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
     except:
-            data11 = get_data1(selected_stock)[['CLOSE']]
-            st.write(data11.tail(1))
+            data11 = get_data1(selected_stock)
+            data12 = data11[['CLOSE']]
+            data13 = data12.copy()
+            st.write(data13.tail(1))
 
-if b_clicked == True:
+if b_clicked:
     try:
             sto = stock_min_now(selected_stock)
             sto['Delta'] = sto['CLOSE'].diff()
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
     except:
-            data11 = get_data1(selected_stock)[['CLOSE']]
-            st.write(data11.tail(1))
+            data11 = get_data1(selected_stock)
+            data12 = data11[['CLOSE']]
+            data13 = data12.copy()
+            st.write(data13.tail(1))
 
 # In[ ]:
 
