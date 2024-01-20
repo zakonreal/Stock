@@ -195,24 +195,19 @@ def stock_min_now(cod):
 
 st.write("✔️ Now Stock")
 b_clicked = st.button("↻")
-if b_clicked == False:
-    try:
+try:
+    if b_clicked == False:
             sto = stock_min_now(selected_stock)
             sto['Delta'] = sto['CLOSE'].diff()
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
-    except:
-            data11 = get_data1(selected_stock)
-            st.write(data11[['CLOSE']].tail(1))
-else:
-    try:
+    else:
             sto = stock_min_now(selected_stock)
             sto['Delta'] = sto['CLOSE'].diff()
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
-    except:
-            data12 = get_data1(selected_stock)
-            st.write(data12[['CLOSE']].tail(1))
+except:
+            st.write(data1[['CLOSE']].tail(1))
 
 # In[ ]:
 
