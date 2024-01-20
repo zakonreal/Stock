@@ -198,16 +198,16 @@ b_clicked = st.button("↻")
 to = date.today()
 if b_clicked == False:
     if to.weekday() in [5,6]:
-            st.write(data[['CLOSE']].tail(1))
+            st.write(get_data1(selected_stock)[['CLOSE']].tail(1))
     else:
             sto = stock_min_now(selected_stock)
             sto['Delta'] = sto['CLOSE'].diff()
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
 else:
-    st.write(to.weekday())
+    st.write(to)
     if to.weekday() in [5,6]:
-            st.write(data[['CLOSE']].tail(1))
+            st.write(get_data1(selected_stock)[['CLOSE']].tail(1))
     else:
             sto = stock_min_now(selected_stock)
             sto['Delta'] = sto['CLOSE'].diff()
