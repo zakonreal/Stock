@@ -203,21 +203,16 @@ if b_clicked == False:
             st.write(sto.tail(1))
     except:
             data11 = get_data1(selected_stock)
-            data12 = data11[['CLOSE']]
-            data13 = data12.copy()
-            st.write(data13.tail(1))
-
-if b_clicked:
+            st.write(data11[['CLOSE']].tail(1))
+else:
     try:
             sto = stock_min_now(selected_stock)
             sto['Delta'] = sto['CLOSE'].diff()
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
     except:
-            data11 = get_data1(selected_stock)
-            data12 = data11[['CLOSE']]
-            data13 = data12.copy()
-            st.write(data13.tail(1))
+            data12 = get_data1(selected_stock)
+            st.write(data12[['CLOSE']].tail(1))
 
 # In[ ]:
 
@@ -420,7 +415,7 @@ if button_c:
         st.write("***")
         st.write("###")
 
-        st.write("Forecast today")
+        st.write("Forecast")
         forecast1 = forecast_1[['ds', 'yhat']].copy()
         forecast1 = forecast_1.rename(columns={"ds": "DATE", "yhat": 'CLOSE'})
         st.write(forecast1[['DATE', 'CLOSE']].tail(1))
