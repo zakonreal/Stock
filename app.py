@@ -202,8 +202,7 @@ try:
             st.write(sto.tail(1))
 except:
             st.write(data1[['CLOSE']].tail(1))
-    
-
+            sto = data1[['CLOSE']].tail(1)
 # In[ ]:
 
 st.write("Financial Data")
