@@ -196,15 +196,22 @@ def stock_min_now(cod):
 st.write("✔️ Now Stock")
 b_clicked = st.button("↻")
 if b_clicked == False:
-            sto = stock_min_now(selected_stock)
-            sto['Delta'] = sto['CLOSE'].diff()
-            sto['%'] = sto['CLOSE'].pct_change().round(3)
-            st.write(sto.tail(1))
+    to = date.today()
+    if to in [5,6]:
+        st.write(date1.tail(1))
+    else:
+        sto = stock_min_now(selected_stock)
+        sto['Delta'] = sto['CLOSE'].diff()
+        sto['%'] = sto['CLOSE'].pct_change().round(3)
+        st.write(sto.tail(1))
 else:
-            sto = stock_min_now(selected_stock)
-            sto['Delta'] = sto['CLOSE'].diff()
-            sto['%'] = sto['CLOSE'].pct_change().round(3)
-            st.write(sto.tail(1))
+    if to in [5,6]:
+        st.write(date1.tail(1))
+    else:
+        sto = stock_min_now(selected_stock)
+        sto['Delta'] = sto['CLOSE'].diff()
+        sto['%'] = sto['CLOSE'].pct_change().round(3)
+        st.write(sto.tail(1))
 
 
 # In[ ]:
