@@ -124,13 +124,18 @@ def get_data1(cod, data_start = '2013-01-01'):
     return dfd
 
 # In[ ]:
-
-data = get_data1(selected_stock)
-data = data[['OPEN', 'HIGH', 'LOW', 'CLOSE']]
-data1 = data.copy()
-data1['Delta'] = data1['CLOSE'].diff()
-data1['%'] = data1['CLOSE'].pct_change().round(3)
-
+try:
+  data = get_data1(selected_stock)
+  data = data[['OPEN', 'HIGH', 'LOW', 'CLOSE']]
+  data1 = data.copy()
+  data1['Delta'] = data1['CLOSE'].diff()
+  data1['%'] = data1['CLOSE'].pct_change().round(3)
+except:
+  data = get_data(selected_stock)
+  data = data[['OPEN', 'HIGH', 'LOW', 'CLOSE']]
+  data1 = data.copy()
+  data1['Delta'] = data1['CLOSE'].diff()
+  data1['%'] = data1['CLOSE'].pct_change().round(3)
 
 # In[ ]:
 
