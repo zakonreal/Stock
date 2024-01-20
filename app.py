@@ -336,7 +336,6 @@ def rep(selected_stock):
 
 # In[ ]:
 
-
 if button_clicked:
             rep(selected_stock)
             webbrowser.open(f'{selected_stock}_report.html')
@@ -399,7 +398,8 @@ if button_c:
         future = m.make_future_dataframe(periods=period)
         forecast = m.predict(future)
         
-        future_1 = m.make_future_dataframe(periods=1)
+        if day.today().weekday() in [5,6]: future_1 = m.make_future_dataframe(periods=3)
+        else: future_1 = m.make_future_dataframe(periods=1)
         forecast_1 = m.predict(future_1)
 
         st.write("***")
@@ -416,7 +416,7 @@ if button_c:
         st.write("Forecast Components")
         fig2 = m.plot_components(forecast)
         st.write(fig2)
-
+        
 # In[3]:
 
 
