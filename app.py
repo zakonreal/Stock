@@ -130,12 +130,6 @@ try:
     data1 = data.copy()
     data1['Delta'] = data1['CLOSE'].diff()
     data1['%'] = data1['CLOSE'].pct_change().round(3)
-except:
-    data = get_data(selected_stock)
-    data = data[['OPEN', 'HIGH', 'LOW', 'CLOSE']]
-    data1 = data.copy()
-    data1['Delta'] = data1['CLOSE'].diff()
-    data1['%'] = data1['CLOSE'].pct_change().round(3)
 
 # In[ ]:
 
@@ -206,8 +200,8 @@ try:
             sto['Delta'] = sto['CLOSE'].diff()
             sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
-except:
-            st.write(data1[['CLOSE']].tail(1))
+#except:
+            #st.write(data1[['CLOSE']].tail(1))
 
 # In[ ]:
 
