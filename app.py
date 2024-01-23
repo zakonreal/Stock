@@ -25,15 +25,19 @@ import webbrowser
 import datetime
 from datetime import datetime, date, timedelta
 import time
+import os
 
 from prophet import Prophet
 from prophet.plot import plot_plotly
+
+from langchain_experimental.agents import create_pandas_dataframe_agent
+from langchain.llms import OpenAI
 # In[ ]:
 
 
 # stocks = ['GAZP', 'ROSN', 'SBERP', 'RTKMP', 'MOEX']
 stocks = ['GAZP', 'SBERP']
-
+os.environ['OPENAI_API_KEY'] = "OpenAI API KEY GOES HERE"
 
 # In[ ]:
 
@@ -288,7 +292,29 @@ news = get_news(selected_stock)
 news.columns = ['Тема', 'Источник', 'Адрес']
 st.write(news.to_html(render_links=True, escape=False), unsafe_allow_html=True)
 
+# In[ ]:
 
+query = st.sidebar.text_input("Enter a query:") 
+
+ # Execute pandas response logic
+if st.sidebar.button("Execute ❓") and query:
+        with st.spinner('Generating response...'):
+            try:
+
+                 # Define pandas df agent - 0 ~ no creativity vs 1 ~ very creative
+                agent = create_pandas_dataframe_agent(OpenAI(temperature=0.0),pd.DataFrame(data1),verbose=True) 
+
+                # Run agent and retrieve answer
+                answer = agent.run(query)
+
+                # Display user query and agents answer
+                st.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
+                st.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
+                st.write("")
+
+            except Exception as e:
+                st.error(f"An error occurred: {str(e)}")
+                
 # In[ ]:
 
 
