@@ -298,7 +298,7 @@ query = st.sidebar.text_input("Enter a query:")
 
  # Execute pandas response logic
 if st.sidebar.button("Execute ❓") and query:
-        with st.spinner('Generating response...'):
+        with st.sidebar.spinner('Generating response...'):
             try:
 
                  # Define pandas df agent - 0 ~ no creativity vs 1 ~ very creative
@@ -308,12 +308,12 @@ if st.sidebar.button("Execute ❓") and query:
                 answer = agent.run(query)
 
                 # Display user query and agents answer
-                st.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
-                st.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
-                st.write("")
+                st.sidebar.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
+                st.sidebar.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
+                st.sidebar.write("")
 
             except Exception as e:
-                st.error(f"An error occurred: {str(e)}")
+                st.sidebar.error(f"An error occurred: {str(e)}")
                 
 # In[ ]:
 
