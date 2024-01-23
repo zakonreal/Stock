@@ -302,18 +302,18 @@ if st.sidebar.button("Execute ❓") and query:
             try:
 
                  # Define pandas df agent - 0 ~ no creativity vs 1 ~ very creative
-                agent = create_pandas_dataframe_agent(OpenAI(temperature=0.0),pd.DataFrame(data1),verbose=True) 
+                agent = create_pandas_dataframe_agent(OpenAI(temperature=0.0),data1,verbose=True) 
 
                 # Run agent and retrieve answer
                 answer = agent.run(query)
 
                 # Display user query and agents answer
-                st.sidebar.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
-                st.sidebar.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
-                st.sidebar.write("")
+                st.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
+                st.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
+                st.write("")
 
             except Exception as e:
-                st.sidebar.error(f"An error occurred: {str(e)}")
+                st.error(f"An error occurred: {str(e)}")
                 
 # In[ ]:
 
