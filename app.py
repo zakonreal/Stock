@@ -467,6 +467,7 @@ with st.sidebar:
 
 
     # Initialize chat history
+    st.title("GigaChain Bot")
     if "messages" not in st.session_state:
         st.session_state.messages = [
             ChatMessage(
@@ -482,7 +483,6 @@ for message in st.session_state.messages:
         with st.chat_message(message.role):
             st.markdown(message.content)
 
-st.title("GigaChain Bot")
 if prompt := st.chat_input():
         if not access_token and not credentials and not (user and password):
             st.info("Заполните данные GigaChat для того, чтобы продолжить")
