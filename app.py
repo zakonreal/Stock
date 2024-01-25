@@ -33,7 +33,7 @@ from prophet.plot import plot_plotly
 from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain.llms import OpenAI
 
-from langchain.chat_models import GigaChat
+from langchain.chat_models.gigachat import GigaChat
 from langchain.schema import ChatMessage
 # In[ ]:
 
@@ -466,9 +466,9 @@ with st.sidebar:
     password = st.text_input("GIGACHAT_PASSWORD", type="password")
 
 
-    # Initialize chat history
-    st.title("GigaChain Bot")
-    if "messages" not in st.session_state:
+# Initialize chat history
+st.title("GigaChain Bot")
+if "messages" not in st.session_state:
         st.session_state.messages = [
             ChatMessage(
                 role="system",
@@ -478,7 +478,7 @@ with st.sidebar:
         ]
 
 
-    # Display chat messages from history on app rerun
+# Display chat messages from history on app rerun
 for message in st.session_state.messages:
         with st.chat_message(message.role):
             st.markdown(message.content)
