@@ -492,8 +492,7 @@ if prompt := st.chat_input():
     chat = GigaChat(
         base_url=base_url,
         credentials=credentials,
-        access_token=st.session_state.get("token")
-        or access_token,  # Переиспользуем токен
+        access_token=st.session_state.get("token"),
         user=user,
         verify_ssl_certs=False,
     )
