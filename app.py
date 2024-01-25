@@ -32,6 +32,9 @@ from prophet.plot import plot_plotly
 
 from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain.llms import OpenAI
+
+from langchain.chat_models import GigaChat
+from langchain.schema import ChatMessage
 # In[ ]:
 
 
@@ -294,27 +297,97 @@ st.write(news.to_html(render_links=True, escape=False), unsafe_allow_html=True)
 
 # In[ ]:
 
-query = st.sidebar.text_input("Enter a query:") 
+# query = st.sidebar.text_input("Enter a query:") 
 
- # Execute pandas response logic
-if st.sidebar.button("Execute ❓") and query:
-        with st.sidebar.spinner('Generating response...'):
-            try:
+#  # Execute pandas response logic
+# if st.sidebar.button("Execute ❓") and query:
+#         with st.sidebar.spinner('Generating response...'):
+#             try:
 
-                 # Define pandas df agent - 0 ~ no creativity vs 1 ~ very creative
-                agent = create_pandas_dataframe_agent(OpenAI(temperature=0.0),data1,verbose=True) 
+#                  # Define pandas df agent - 0 ~ no creativity vs 1 ~ very creative
+#                 agent = create_pandas_dataframe_agent(OpenAI(temperature=0.0),data1,verbose=True) 
 
-                # Run agent and retrieve answer
-                answer = agent.run(query)
+#                 # Run agent and retrieve answer
+#                 answer = agent.run(query)
 
-                # Display user query and agents answer
-                st.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
-                st.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
-                st.write("")
+#                 # Display user query and agents answer
+#                 st.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
+#                 st.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
+#                 st.write("")
 
-            except Exception as e:
-                st.error(f"An error occurred: {str(e)}")
-                
+#             except Exception as e:
+#                 st.error(f"An error occurred: {str(e)}")
+
+with st.sidebar:
+    st.title("GIGACHAT API")
+    base_url = st.selectbox(
+        "GIGACHAT_BASE_URL",
+        (
+            "https://gigachat.devices.sberbank.ru/api/v1",
+            "https://beta.saluteai.sberdevices.ru/v1",
+        ),
+    )
+    st.title("Авторизационные данные")
+    credentials = st.text_input("GIGACHAT_CREDENTIALS", type="password")
+    # st.title("OR")
+    # access_token = st.text_input("GIGACHAT_ACCESS_TOKEN", type="password")
+    # st.title("OR")
+    # user = st.text_input("GIGACHAT_USER")
+    # password = st.text_input("GIGACHAT_PASSWORD", type="password")
+
+
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        ChatMessage(
+            role="system",
+            content="Ты - умный ИИ ассистент, который всегда готов помочь пользователю.",
+        ),
+        ChatMessage(role="assistant", content="Как я могу помочь вам?"),
+    ]
+
+
+# Display chat messages from history on app rerun
+for message in st.session_state.messages:
+    with st.chat_message(message.role):
+        st.markdown(message.content)
+
+
+if prompt := st.chat_input():
+    if not access_token and not credentials and not (user and password):
+        st.info("Заполните данные GigaChat для того, чтобы продолжить")
+        st.stop()
+
+    chat = GigaChat(
+        base_url=base_url,
+        credentials=credentials,
+        access_token=st.session_state.get("token")
+        or access_token,  # Переиспользуем токен
+        user=user,
+        password=password,
+        verify_ssl_certs=False,
+    )
+
+    message = ChatMessage(role="user", content=prompt)
+    st.session_state.messages.append(message)
+
+    with st.chat_message(message.role):
+        st.markdown(message.content)
+
+    message = ChatMessage(role="assistant", content="")
+    st.session_state.messages.append(message)
+
+    with st.chat_message(message.role):
+        message_placeholder = st.empty()
+        for chunk in chat.stream(st.session_state.messages):
+            message.content += chunk.content
+            message_placeholder.markdown(message.content + "▌")
+        message_placeholder.markdown(message.content)
+
+    # Каждый раз, когда пользователь нажимает что-то в интерфейсе весь скрипт выполняется заново.
+    # Сохраняем токен и закрываем соединения
+    st.session_state.token = chat._client.token
+    chat._client.close()
 # In[ ]:
 
 
