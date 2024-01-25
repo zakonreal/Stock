@@ -34,6 +34,7 @@ from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain.llms import OpenAI
 
 from langchain.chat_models.gigachat import GigaChat
+from langchain.chat_models import GigaChat
 from langchain.schema import ChatMessage
 # In[ ]:
 
