@@ -485,7 +485,7 @@ for message in st.session_state.messages:
             st.markdown(message.content)
 
 if prompt := st.chat_input():
-    if not access_token and not credentials and not (user and password):
+    if not access_token: # and not credentials and not (user and password):
         st.info("Заполните данные GigaChat для того, чтобы продолжить")
         st.stop()
 
