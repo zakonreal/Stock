@@ -493,7 +493,6 @@ if prompt := st.chat_input():
         base_url=base_url,
         credentials=credentials,
         access_token=st.session_state.get("token"),
-        user=user,
         verify_ssl_certs=False,
     )
 
