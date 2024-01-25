@@ -464,7 +464,7 @@ with st.sidebar:
     # access_token = st.text_input("GIGACHAT_ACCESS_TOKEN", type="password")
     # st.title("OR")
     # user = st.text_input("GIGACHAT_USER")
-    # password = st.text_input("GIGACHAT_PASSWORD", type="password")
+    password = st.text_input("GIGACHAT_PASSWORD", type="password")
 
 
 # Initialize chat history
@@ -493,6 +493,7 @@ if prompt := st.chat_input():
         base_url=base_url,
         credentials=credentials,
         access_token=st.session_state.get("token"),
+        password=password,
         verify_ssl_certs=False,
     )
 
