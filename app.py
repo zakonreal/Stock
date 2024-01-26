@@ -484,7 +484,7 @@ for message in st.session_state.messages:
         with st.chat_message(message.role):
             st.markdown(message.content)
 
-if prompt := st.chat_input():
+if prompt := st.sidebar.chat_input():
     if not credentials:
         st.info("Заполните данные GigaChat для того, чтобы продолжить")
         st.stop()
