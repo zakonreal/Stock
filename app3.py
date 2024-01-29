@@ -140,6 +140,51 @@ data1['Delta'] = data1['CLOSE'].diff()
 data1['%'] = data1['CLOSE'].pct_change().round(3)
 
 # In[ ]:
+with st.sidebar:
+    st.title("GIGACHAT API")
+    base_url = st.selectbox(
+        "GIGACHAT_BASE_URL",
+        (
+            "https://gigachat.devices.sberbank.ru/api/v1",
+            "https://beta.saluteai.sberdevices.ru/v1",
+        ),
+    )
+    st.title("Авторизационные данные")
+    credentials = st.text_input("GIGACHAT_CREDENTIALS", type="password")
+    # st.title("OR")
+    # access_token = st.text_input("GIGACHAT_ACCESS_TOKEN", type="password")
+    # st.title("OR")
+    # user = st.text_input("GIGACHAT_USER")
+    password = st.text_input("GIGACHAT_PASSWORD", type="password")
+    
+query = st.sidebar.text_input("Enter a query:") 
+
+ # Execute pandas response logic
+if st.sidebar.button("Execute ❓") and query:
+        with st.spinner('Generating response...'):
+            try:
+
+                 # Define pandas df agent - 0 ~ no creativity vs 1 ~ very creative
+                chat = GigaChat(
+                        base_url=base_url,
+                        credentials=credentials,
+                        access_token=st.session_state.get("token"),  # Переиспользуем токен
+                        password=password,
+                        verify_ssl_certs=False,
+                    )
+                agent = create_pandas_dataframe_agent(chat,data1,verbose=True) 
+
+                # Run agent and retrieve answer
+                answer = agent.run(query)
+
+                # Display user query and agents answer
+                st.write(user_template.replace("{{MSG}}",query ), unsafe_allow_html=True)
+                st.write(bot_template.replace("{{MSG}}", answer ), unsafe_allow_html=True)
+                st.write("")
+
+            except Exception as e:
+                st.error(f"An error occurred: {str(e)}")
+# In[ ]:
 
 
 st.header(f'📈Stock Analysis {selected_stock}')
@@ -448,74 +493,74 @@ if button_c:
         fig2 = m.plot_components(forecast)
         st.write(fig2)
         
-# In[3]:
-with st.sidebar:
-    st.title("GIGACHAT API")
-    base_url = st.selectbox(
-        "GIGACHAT_BASE_URL",
-        (
-            "https://gigachat.devices.sberbank.ru/api/v1",
-            "https://beta.saluteai.sberdevices.ru/v1",
-        ),
-    )
-    st.title("Авторизационные данные")
-    credentials = st.text_input("GIGACHAT_CREDENTIALS", type="password")
-    # st.title("OR")
-    # access_token = st.text_input("GIGACHAT_ACCESS_TOKEN", type="password")
-    # st.title("OR")
-    # user = st.text_input("GIGACHAT_USER")
-    password = st.text_input("GIGACHAT_PASSWORD", type="password")
+# # In[3]:
+# with st.sidebar:
+#     st.title("GIGACHAT API")
+#     base_url = st.selectbox(
+#         "GIGACHAT_BASE_URL",
+#         (
+#             "https://gigachat.devices.sberbank.ru/api/v1",
+#             "https://beta.saluteai.sberdevices.ru/v1",
+#         ),
+#     )
+#     st.title("Авторизационные данные")
+#     credentials = st.text_input("GIGACHAT_CREDENTIALS", type="password")
+#     # st.title("OR")
+#     # access_token = st.text_input("GIGACHAT_ACCESS_TOKEN", type="password")
+#     # st.title("OR")
+#     # user = st.text_input("GIGACHAT_USER")
+#     password = st.text_input("GIGACHAT_PASSWORD", type="password")
 
 
-# Initialize chat history
-st.title("GigaChain Bot")
-if "messages" not in st.session_state:
-        st.session_state.messages = [
-            ChatMessage(
-                role="system",
-                content=f"Ты - опытный торговый трейдер, который обладает необходимыми знаниями и опытом для того, чтобы помочь пользователю сделать правильный выбор и принять обоснованное решение в покупке и продаже акций {selected_stock}.",),
-            ChatMessage(role="assistant", content="Как я могу помочь вам?"),
-        ]
+# # Initialize chat history
+# st.title("GigaChain Bot")
+# if "messages" not in st.session_state:
+#         st.session_state.messages = [
+#             ChatMessage(
+#                 role="system",
+#                 content=f"Ты - опытный торговый трейдер, который обладает необходимыми знаниями и опытом для того, чтобы помочь пользователю сделать правильный выбор и принять обоснованное решение в покупке и продаже акций {selected_stock}.",),
+#             ChatMessage(role="assistant", content="Как я могу помочь вам?"),
+#         ]
 
 
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-        with st.chat_message(message.role):
-            st.markdown(message.content)
+# # Display chat messages from history on app rerun
+# for message in st.session_state.messages:
+#         with st.chat_message(message.role):
+#             st.markdown(message.content)
 
-if prompt := st.chat_input():
-    if not credentials:
-        st.info("Заполните данные GigaChat для того, чтобы продолжить")
-        st.stop()
+# if prompt := st.chat_input():
+#     if not credentials:
+#         st.info("Заполните данные GigaChat для того, чтобы продолжить")
+#         st.stop()
 
-    chat = GigaChat(
-        base_url=base_url,
-        credentials=credentials,
-        access_token=st.session_state.get("token"),
-        password=password,
-        verify_ssl_certs=False,
-    )
+#     chat = GigaChat(
+#         base_url=base_url,
+#         credentials=credentials,
+#         access_token=st.session_state.get("token"),
+#         password=password,
+#         verify_ssl_certs=False,
+#     )
 
-    message = ChatMessage(role="user", content=prompt)
-    st.session_state.messages.append(message)
+#     message = ChatMessage(role="user", content=prompt)
+#     st.session_state.messages.append(message)
 
-    with st.chat_message(message.role):
-        st.markdown(message.content)
+#     with st.chat_message(message.role):
+#         st.markdown(message.content)
 
-    message = ChatMessage(role="assistant", content="")
-    st.session_state.messages.append(message)
+#     message = ChatMessage(role="assistant", content="")
+#     st.session_state.messages.append(message)
 
-    with st.chat_message(message.role):
-        message_placeholder = st.empty()
-        for chunk in chat.stream(st.session_state.messages):
-            message.content += chunk.content
-            message_placeholder.markdown(message.content + "▌")
-        message_placeholder.markdown(message.content)
+#     with st.chat_message(message.role):
+#         message_placeholder = st.empty()
+#         for chunk in chat.stream(st.session_state.messages):
+#             message.content += chunk.content
+#             message_placeholder.markdown(message.content + "▌")
+#         message_placeholder.markdown(message.content)
 
-    # Каждый раз, когда пользователь нажимает что-то в интерфейсе весь скрипт выполняется заново.
-    # Сохраняем токен и закрываем соединения
-    st.session_state.token = chat._client.token
-    chat._client.close()
+#     # Каждый раз, когда пользователь нажимает что-то в интерфейсе весь скрипт выполняется заново.
+#     # Сохраняем токен и закрываем соединения
+#     st.session_state.token = chat._client.token
+#     chat._client.close()
 
 # In[3]:
 
