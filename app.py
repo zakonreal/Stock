@@ -39,8 +39,8 @@ from langchain.schema import ChatMessage
 # In[ ]:
 
 
-# stocks = ['GAZP', 'ROSN', 'SBERP', 'RTKMP', 'MOEX']
-stocks = ['GAZP', 'SBERP']
+stocks = ['GAZP', 'ROSN', 'SBERP', 'RTKMP', 'MOEX']
+# stocks = ['GAZP', 'SBERP']
 os.environ['OPENAI_API_KEY'] = "OpenAI API KEY GOES HERE"
 
 # In[ ]:
