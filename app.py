@@ -81,9 +81,9 @@ button_clicked = st.sidebar.button("Report 📊")
 
 
 # @st.cache
-def get_data(i):
-    path = f'{i}_day.csv'
-    return pd.read_csv(path, index_col=0, low_memory=False)
+# def get_data(i):
+#     path = f'{i}_day.csv'
+#     return pd.read_csv(path, index_col=0, low_memory=False)
 
 
 # In[ ]:
@@ -261,7 +261,7 @@ if ch == 'Candlestick':
 def get_mfso(i):
     if i == 'SBERP': i = 'SBER'
     if i == 'RTKMP': i = 'RTKM'
-    path = f'MSFO_{i}.csv'
+    path = f'data/MSFO_{i}.csv'
     return pd.read_csv(path, index_col=0, low_memory=False)
 
 
@@ -285,7 +285,7 @@ st.write(mfso.fillna('-').tail(4))
 def get_news(i):
     if i == 'SBERP': i = 'SBER'
     if i == 'RTKMP': i = 'RTKM'
-    path = f'{i}_news.csv'
+    path = f'data/{i}_news.csv'
     return pd.read_csv(path, index_col=0, low_memory=False)[['title', 'site', 'url']].tail()
 
 
@@ -372,11 +372,11 @@ if button_clicked:
             webbrowser.open(f'{selected_stock}_report.html')
 
         
-# @st.cache            
-def get_pred_data(i):
-    path = f'{i}_day.csv'
-    return pd.read_csv(path, low_memory=False)[['DATE', 'CLOSE']]
-
+# # @st.cache            
+# def get_pred_data(i):
+#     path = f'{i}_day.csv'
+#     return pd.read_csv(path, low_memory=False)[['DATE', 'CLOSE']]
+# @st.cache  
 def get_pred_data1(cod, data_start = '2013-01-01'):
     
     data_start = data_start
