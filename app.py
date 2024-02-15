@@ -90,7 +90,7 @@ button_clicked = st.sidebar.button("Report 📊")
 
 
 # @st.cache
-def get_data1(cod, data_start = '2013-01-01'):
+def get_data1(cod, data_start = '2020-01-01'):
     
     data_start = data_start
     yesterday = date.today() - timedelta(days=1)
@@ -123,8 +123,8 @@ def get_data1(cod, data_start = '2013-01-01'):
     }
     )
     s = urllib.request.urlopen(req)
-    # dfd = pd.read_csv(s)
-    # dfd.columns = ['TICKER','PER', 'DATE', 'TIME', 'OPEN', 'HIGH', 'LOW', 'CLOSE', 'VOL']
+    dfd = pd.read_csv(s)
+    dfd.columns = ['TICKER','PER', 'DATE', 'TIME', 'OPEN', 'HIGH', 'LOW', 'CLOSE', 'VOL']
     dfd['DATE'] = pd.to_datetime(dfd['DATE'], format='%Y%m%d')
     dfd['DATE'] = dfd['DATE'].dt.strftime("%Y-%m-%d")
     dfd.set_index('DATE', inplace=True)
