@@ -93,7 +93,7 @@ button_clicked = st.sidebar.button("Report 📊")
 def get_data1(cod, data_start = '2020-01-01'):
     
     data_start = data_start
-    yesterday = date.today() - timedelta(days=3)
+    yesterday = date.today() - timedelta(days=1)
     data_end = str(yesterday)
     
     # Начальная дата
