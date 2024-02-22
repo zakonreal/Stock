@@ -90,7 +90,7 @@ button_clicked = st.sidebar.button("Report 📊")
 
 
 # @st.cache
-def get_data1(cod, data_start = '2020-01-01'):
+def get_data1(cod, data_start = '2019-01-01'):
     
     data_start = data_start
     yesterday = date.today() - timedelta(days=1)
