@@ -80,56 +80,56 @@ button_clicked = st.sidebar.button("Report 📊")
 # In[ ]:
 
 
-# @st.cache
-# def get_data(i):
-#     path = f'{i}_day.csv'
-#     return pd.read_csv(path, index_col=0, low_memory=False)
+@st.cache
+def get_data1(i):
+    path = f'data/{i}_day.csv'
+    return pd.read_csv(path, index_col=0, low_memory=False)
 
 
 # In[ ]:
 
 
 # @st.cache
-def get_data1(cod, data_start = '2022-01-01'):
+# def get_data1(cod, data_start = '2022-01-01'):
     
-    data_start = data_start
-    yesterday = date.today() - timedelta(days=1)
-    data_end = str(yesterday)
+#     data_start = data_start
+#     yesterday = date.today() - timedelta(days=1)
+#     data_end = str(yesterday)
     
-    # Начальная дата
-    t0 = '.'.join(reversed(data_start.split('-')))
-    t01 = t0.split('.')[2]
-    t02 = str(int(t0.split('.')[1])-1)
-    t03 = t0.split('.')[0]
+#     # Начальная дата
+#     t0 = '.'.join(reversed(data_start.split('-')))
+#     t01 = t0.split('.')[2]
+#     t02 = str(int(t0.split('.')[1])-1)
+#     t03 = t0.split('.')[0]
     
-    # Конечная дата
-    t1 = '.'.join(reversed(data_end.split('-')))
-    t11 = t1.split('.')[2]
-    t12 = str(int(t1.split('.')[1])-1)
-    t13 = t1.split('.')[0]
+#     # Конечная дата
+#     t1 = '.'.join(reversed(data_end.split('-')))
+#     t11 = t1.split('.')[2]
+#     t12 = str(int(t1.split('.')[1])-1)
+#     t13 = t1.split('.')[0]
     
-    p = 8 # период день
-    cod5 = cod # Биржевой курс акций Сбербанк-П  (moex)
-    token='03ADUVZwA9gRNHBgCOuXyphBx7YgdmsSQYVO4KJYqu1HIwjMsNG1XJO5gdMZWjZ5XRq_FY8Ev2QEnQUHnBWFl91ZlAExJav4c39F82glIPI2xIsRHl1lgKedIbUiZBWe5TRZcWTClPBvALDMV8aZMcw64wRAeSgVrg5_p3r3zoVvHnJ5D8PDKNxrMgAhdBcBjeTu8lLA5LLPcpXpb3ZSUFfPZc54ehulaZ4zCngw_ZjB5uz82i_3EMb8zOb49woCsrQmqzj40Qe-o37KklI-VEdVOHp9gZ2jTSwcm_a4veyfj91O4xJmiPg6XeSQdmn8ESulDijDy9BHEhPMUt18dM_4TYztqgGwg-EEsv9h6O_jdAQsPe1mEZ-7CnkRG45ExoszJDe2XnYM9xHMqUwkrEBTZ--IuYNw680_zpp7poUk86I-am6PxhNaRa1NRCcUZM2Gcgr6AvshhOB73R68aFjswX29Kg28sLS8X0uAUJVLPNE2uDyc2Ni64HiDlOnp3CBJNfa1Y8aCfpd9KuNvuz8zBqBalYCf5f_w'
-    maket = {'USDCB': 41,'GAZP': 1, 'ROSN': 1, 'SBERP': 1, 'RTKMP': 1, 'MOEX': 1}
-    em = {'USDCB': 82485,'GAZP': 16842, 'ROSN': 17273, 'SBERP': 23, 'RTKMP': 15, 'MOEX': 152798}
+#     p = 8 # период день
+#     cod5 = cod # Биржевой курс акций Сбербанк-П  (moex)
+#     token='03ADUVZwA9gRNHBgCOuXyphBx7YgdmsSQYVO4KJYqu1HIwjMsNG1XJO5gdMZWjZ5XRq_FY8Ev2QEnQUHnBWFl91ZlAExJav4c39F82glIPI2xIsRHl1lgKedIbUiZBWe5TRZcWTClPBvALDMV8aZMcw64wRAeSgVrg5_p3r3zoVvHnJ5D8PDKNxrMgAhdBcBjeTu8lLA5LLPcpXpb3ZSUFfPZc54ehulaZ4zCngw_ZjB5uz82i_3EMb8zOb49woCsrQmqzj40Qe-o37KklI-VEdVOHp9gZ2jTSwcm_a4veyfj91O4xJmiPg6XeSQdmn8ESulDijDy9BHEhPMUt18dM_4TYztqgGwg-EEsv9h6O_jdAQsPe1mEZ-7CnkRG45ExoszJDe2XnYM9xHMqUwkrEBTZ--IuYNw680_zpp7poUk86I-am6PxhNaRa1NRCcUZM2Gcgr6AvshhOB73R68aFjswX29Kg28sLS8X0uAUJVLPNE2uDyc2Ni64HiDlOnp3CBJNfa1Y8aCfpd9KuNvuz8zBqBalYCf5f_w'
+#     maket = {'USDCB': 41,'GAZP': 1, 'ROSN': 1, 'SBERP': 1, 'RTKMP': 1, 'MOEX': 1}
+#     em = {'USDCB': 82485,'GAZP': 16842, 'ROSN': 17273, 'SBERP': 23, 'RTKMP': 15, 'MOEX': 152798}
     
-    url =f'https://export.finam.ru/export9.out?market={maket[cod5]}&em={em[cod5]}&token={token}&code={cod5}&apply=0&df={t03}&mf={t02}&yf={t01}&from={t0}&dt={t13}&mt={t12}&yt={t11}&to={t1}&p={p}&f={cod5}_200101_230820&e=.csv&cn={cod5}&dtf=1&tmf=1&MSOR=1&mstime=on&mstimever=1&sep=1&sep2=1&datf=1&at=1'
-    req = urllib.request.Request(
-    url,
-    data=None,
-    headers={
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
-    }
-    )
-    s = urllib.request.urlopen(req)
-    dfd = pd.read_csv(s)
-    dfd.columns = ['TICKER','PER', 'DATE', 'TIME', 'OPEN', 'HIGH', 'LOW', 'CLOSE', 'VOL']
-    dfd['DATE'] = pd.to_datetime(dfd['DATE'], format='%Y%m%d')
-    dfd['DATE'] = dfd['DATE'].dt.strftime("%Y-%m-%d")
-    dfd.set_index('DATE', inplace=True)
+#     url =f'https://export.finam.ru/export9.out?market={maket[cod5]}&em={em[cod5]}&token={token}&code={cod5}&apply=0&df={t03}&mf={t02}&yf={t01}&from={t0}&dt={t13}&mt={t12}&yt={t11}&to={t1}&p={p}&f={cod5}_200101_230820&e=.csv&cn={cod5}&dtf=1&tmf=1&MSOR=1&mstime=on&mstimever=1&sep=1&sep2=1&datf=1&at=1'
+#     req = urllib.request.Request(
+#     url,
+#     data=None,
+#     headers={
+#     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+#     }
+#     )
+#     s = urllib.request.urlopen(req)
+#     dfd = pd.read_csv(s)
+#     dfd.columns = ['TICKER','PER', 'DATE', 'TIME', 'OPEN', 'HIGH', 'LOW', 'CLOSE', 'VOL']
+#     dfd['DATE'] = pd.to_datetime(dfd['DATE'], format='%Y%m%d')
+#     dfd['DATE'] = dfd['DATE'].dt.strftime("%Y-%m-%d")
+#     dfd.set_index('DATE', inplace=True)
     
-    return dfd
+#     return dfd
 
 # In[ ]:
 
