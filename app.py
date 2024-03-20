@@ -44,7 +44,7 @@ import apimoex
 
 stocks = ['GAZP', 'ROSN', 'SBERP', 'RTKMP', 'MOEX']
 # stocks = ['GAZP', 'SBERP']
-os.environ['OPENAI_API_KEY'] = "OpenAI API KEY GOES HERE"
+# os.environ['OPENAI_API_KEY'] = "OpenAI API KEY GOES HERE"
 
 # In[ ]:
 
