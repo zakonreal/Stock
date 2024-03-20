@@ -98,7 +98,8 @@ def get_data1(i):
             data = apimoex.get_board_candles(session, i, start = '2020-01-01', end = data_end)
             dfh = pd.DataFrame(data)
             dfh.columns = ['DATE', 'OPEN', 'CLOSE', 'HIGH', 'LOW',  'VOL']
-            dfh['DATE'] = pd.to_datetime(dfh['DATE'], format='%Y%m%d %H:%M:%S')
+            dfh['DATE'] =  dfh['DATE'].apply(lambda x: x[:10]) 
+            # dfh['DATE'] = pd.to_datetime(dfh['DATE'], format='%Y%m%d %H:%M:%S')
             dfh.set_index('DATE', inplace=True)
 
     return dfh
