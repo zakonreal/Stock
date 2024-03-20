@@ -1,3 +1,4 @@
+# YOLOv5 requirements
 # Usage: pip install -r requirements.txt
 
 # Base ----------------------------------------
@@ -20,7 +21,7 @@ openai>=1.9.0
 gigachat>=0.1.14
 gigachain==0.1.0.1
 streamlit==1.30.0
-apimoex>=1.4.0
+apimoex>=1.1.0
 # protobuf<=3.20.1  # https://github.com/ultralytics/yolov5/issues/8012
 
 # Logging -------------------------------------
