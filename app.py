@@ -38,6 +38,7 @@ from langchain.chat_models import GigaChat
 from langchain.schema import ChatMessage
 
 import pandas as pd
+import apimoex
 # In[ ]:
 
 
