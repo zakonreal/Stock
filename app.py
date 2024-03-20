@@ -95,7 +95,7 @@ def get_data1(i):
     with requests.Session() as session:
             yesterday = date.today() - timedelta(days=1)
             data_end = str(yesterday)
-            data = apimoex.get_board_candles(session, i, start = '2014-01-01', end = data_end)
+            data = apimoex.get_board_candles(session, i, start = '2020-01-01', end = data_end)
             dfh = pd.DataFrame(data)
             dfh.columns = ['DATE', 'OPEN', 'CLOSE', 'HIGH', 'LOW',  'VOL']
             dfh['DATE'] = pd.to_datetime(dfh['DATE'], format='%Y%m%d %H:%M:%S')
