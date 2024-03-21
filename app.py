@@ -93,7 +93,7 @@ button_clicked = st.sidebar.button("Report 📊")
 @st.cache
 def get_data1(i):
     with requests.Session() as session:
-            yesterday = date.today()# - timedelta(days=1)
+            yesterday = date.today() - timedelta(days=1)
             data_end = str(yesterday)
             data = apimoex.get_board_candles(session, i, start = '2020-01-01', end = data_end)
             dfh = pd.DataFrame(data)
