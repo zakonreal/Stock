@@ -218,17 +218,23 @@ b_clicked = st.button("↻")
 try:
     if b_clicked == False:
             sto = stock_min_now(selected_stock)
-            sto['Delta'] = sto['CLOSE'].diff()
-            sto['%'] = sto['CLOSE'].pct_change().round(3)
+            if sto.empty:
+                sto = data1[['CLOSE']].tail(1)
+            else:
+                sto['Delta'] = sto['CLOSE'].diff()
+                sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
     else:
             sto = stock_min_now(selected_stock)
-            sto['Delta'] = sto['CLOSE'].diff()
-            sto['%'] = sto['CLOSE'].pct_change().round(3)
+            if sto.empty:
+                sto = data1[['CLOSE']].tail(1)
+            else:
+                sto['Delta'] = sto['CLOSE'].diff()
+                sto['%'] = sto['CLOSE'].pct_change().round(3)
             st.write(sto.tail(1))
 except:
             st.write(data1[['CLOSE']].tail(1))
-            sto = data1[['CLOSE']].tail(1)
+     #       sto = data1[['CLOSE']].tail(1)
 # In[ ]:
 
 st.write("Financial Data")
