@@ -90,7 +90,7 @@ button_clicked = st.sidebar.button("Report 📊")
 
 
 # In[ ]:
-@st.cache
+
 def get_data1(i):
     with requests.Session() as session:
             yesterday = date.today() - timedelta(days=1)
