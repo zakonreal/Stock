@@ -61,7 +61,7 @@ selected_stock = st.sidebar.selectbox("Select stock", stocks)
 # In[ ]:
 
 
-ch = st.sidebar.radio("Select chart", ['Line', 'Candlestick'])
+ch = st.sidebar.radio("Select chart", ['Candlestick', 'Line'])
 
 
 # In[ ]:
@@ -221,16 +221,20 @@ try:
             if sto.empty:
                 sto = data1[['CLOSE']].tail(1)
             else:
-                sto['Delta'] = sto['CLOSE'].diff()
-                sto['%'] = sto['CLOSE'].pct_change().round(3)
+                sto1 = data1[['CLOSE']].tail(1)
+                sto2 = sto[['CLOSE']].tail(1)
+                sto['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
+                sto['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
             st.write(sto.tail(1))
     else:
             sto = stock_min_now(selected_stock)
             if sto.empty:
                 sto = data1[['CLOSE']].tail(1)
             else:
-                sto['Delta'] = sto['CLOSE'].diff()
-                sto['%'] = sto['CLOSE'].pct_change().round(3)
+                sto1 = data1[['CLOSE']].tail(1)
+                sto2 = sto[['CLOSE']].tail(1)
+                sto['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
+                sto['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
             st.write(sto.tail(1))
 except:
             st.write(data1[['CLOSE']].tail(1))
@@ -269,14 +273,13 @@ def plot_raw_data(quotes, selected_stock):
 
 
 st.write("Chart")
+if ch == 'Candlestick': 
+    plot_raw_data(quotes, selected_stock)
 if ch == 'Line':
     quotes[f'{selected_stock} Rate'] = quotes['CLOSE']
     quotes[f'{selected_stock} Rate'].plot();  
     plt.savefig(f'{selected_stock} Rate.png');
     st.line_chart(quotes[f'{selected_stock} Rate'])
-if ch == 'Candlestick': 
-    plot_raw_data(quotes, selected_stock)
-
 
 # In[ ]:
 
