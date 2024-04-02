@@ -226,7 +226,7 @@ try:
                 s = pd.concat([sto1, sto2], ignore_index=True)
                 s['Delta'] = s['CLOSE'].diff()
                 s['%'] = s['CLOSE'].pct_change().round(3)
-            st.write(s)
+            st.write(s.tail(1))
     else:
             sto = stock_min_now(selected_stock)
             if sto.empty:
@@ -237,7 +237,7 @@ try:
                 s = pd.concat([sto1, sto2], ignore_index=True)
                 s['Delta'] = s['CLOSE'].diff()
                 s['%'] = s['CLOSE'].pct_change().round(3)
-            st.write(s)
+            st.write(s.tail(1))
 except:
             st.write(data[['CLOSE']].tail(1))
      #       sto = data1[['CLOSE']].tail(1)
