@@ -217,29 +217,29 @@ st.write("✔️ Now Stock")
 b_clicked = st.button("↻")
 try:
     if b_clicked == False:
-            sto = stock_min_now(selected_stock)
-            dat1 = get_data1(selected_stock)        
+            sto = stock_min_now(selected_stock) 
             if sto.empty:
-                sto = dat1[['CLOSE']].tail(1)
+                sto = data[['CLOSE']].tail(1)
             else:
-                sto1 = dat1[['CLOSE']].tail(1)
+                sto1 = data[['CLOSE']].tail(1)
                 sto2 = sto[['CLOSE']].tail(1)
-                sto2['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
-                sto2['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
-            st.write(sto2)
+                s = pd.concat([sto1, sto2], ignore_index=True)
+                s['Delta'] = s['CLOSE'].diff()
+                s['%'] = s['CLOSE'].pct_change().round(3)
+            st.write(s)
     else:
             sto = stock_min_now(selected_stock)
-            dat1 = get_data1(selected_stock)
             if sto.empty:
                 sto = dat1[['CLOSE']].tail(1)
             else:
-                sto1 = dat1[['CLOSE']].tail(1)
+                sto1 = data[['CLOSE']].tail(1)
                 sto2 = sto[['CLOSE']].tail(1)
-                sto2['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
-                sto2['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
-            st.write(sto2)
+                s = pd.concat([sto1, sto2], ignore_index=True)
+                s['Delta'] = s['CLOSE'].diff()
+                s['%'] = s['CLOSE'].pct_change().round(3)
+            st.write(s)
 except:
-            st.write(dat1[['CLOSE']].tail(1))
+            st.write(data[['CLOSE']].tail(1))
      #       sto = data1[['CLOSE']].tail(1)
 # In[ ]:
 
