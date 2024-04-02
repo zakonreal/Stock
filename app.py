@@ -223,7 +223,7 @@ try:
             else:
                 sto1 = data[['CLOSE']].tail(1)
                 sto2 = sto[['CLOSE']].tail(1)
-                s = pd.concat([sto1, sto2], ignore_index=True)
+                s = pd.concat([sto1, sto2], ignore_index=False)
                 s['Delta'] = s['CLOSE'].diff()
                 s['%'] = (s['CLOSE'].pct_change() *100).round(2)
             st.write(s.tail(1))
@@ -234,7 +234,7 @@ try:
             else:
                 sto1 = data[['CLOSE']].tail(1)
                 sto2 = sto[['CLOSE']].tail(1)
-                s = pd.concat([sto1, sto2], ignore_index=True)
+                s = pd.concat([sto1, sto2], ignore_index=False)
                 s['Delta'] = s['CLOSE'].diff()
                 s['%'] = (s['CLOSE'].pct_change()*100).round(2)
             st.write(s.tail(1))
