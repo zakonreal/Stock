@@ -155,7 +155,7 @@ data = get_data1(selected_stock)
 data = data[['OPEN', 'HIGH', 'LOW', 'CLOSE']]
 data1 = data.copy()
 data1['Delta'] = data1['CLOSE'].diff()
-data1['%'] = (data1['CLOSE'].pct_change()*100).round(3)
+data1['%'] = (data1['CLOSE'].pct_change()*100).round(2)
 
 # In[ ]:
 
@@ -225,7 +225,7 @@ try:
                 sto2 = sto[['CLOSE']].tail(1)
                 s = pd.concat([sto1, sto2], ignore_index=True)
                 s['Delta'] = s['CLOSE'].diff()
-                s['%'] = (s['CLOSE'].pct_change() *100).round(3)
+                s['%'] = (s['CLOSE'].pct_change() *100).round(2)
             st.write(s.tail(1))
     else:
             sto = stock_min_now(selected_stock)
@@ -236,7 +236,7 @@ try:
                 sto2 = sto[['CLOSE']].tail(1)
                 s = pd.concat([sto1, sto2], ignore_index=True)
                 s['Delta'] = s['CLOSE'].diff()
-                s['%'] = (s['CLOSE'].pct_change()*100).round(3)
+                s['%'] = (s['CLOSE'].pct_change()*100).round(2)
             st.write(s.tail(1))
 except:
             st.write(data[['CLOSE']].tail(1))
