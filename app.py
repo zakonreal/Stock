@@ -223,9 +223,9 @@ try:
             else:
                 sto1 = data1[['CLOSE']].tail(1)
                 sto2 = sto[['CLOSE']].tail(1)
-                sto['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
-                sto['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
-            st.write(sto.tail(1))
+                sto2['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
+                sto2['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
+            st.write(sto2)
     else:
             sto = stock_min_now(selected_stock)
             if sto.empty:
@@ -233,9 +233,9 @@ try:
             else:
                 sto1 = data1[['CLOSE']].tail(1)
                 sto2 = sto[['CLOSE']].tail(1)
-                sto['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
-                sto['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
-            st.write(sto.tail(1))
+                sto2['Delta'] = sto2['CLOSE'] - sto1['CLOSE']
+                sto2['%'] = (sto2['CLOSE'] / sto1['CLOSE'] * 100).round(3)
+            st.write(sto2)
 except:
             st.write(data1[['CLOSE']].tail(1))
      #       sto = data1[['CLOSE']].tail(1)
