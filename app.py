@@ -150,7 +150,7 @@ def get_data1(i):
 #     return dfd
 
 # In[ ]:
-# @st.cache
+
 data = get_data1(selected_stock)
 data = data[['OPEN', 'HIGH', 'LOW', 'CLOSE']]
 data1 = data.copy()
@@ -218,7 +218,7 @@ b_clicked = st.button("↻")
 try:
     if b_clicked == False:
             sto = stock_min_now(selected_stock)
-        
+            data1 = get_data1(selected_stock)        
             if sto.empty:
                 sto = data1[['CLOSE']].tail(1)
             else:
@@ -229,6 +229,7 @@ try:
             st.write(sto2)
     else:
             sto = stock_min_now(selected_stock)
+            data1 = get_data1(selected_stock)
             if sto.empty:
                 sto = data1[['CLOSE']].tail(1)
             else:
