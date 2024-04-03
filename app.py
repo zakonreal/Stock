@@ -61,7 +61,7 @@ selected_stock = st.sidebar.selectbox("Select stock", stocks)
 # In[ ]:
 
 
-ch = st.sidebar.radio("Select chart", ['Line', 'Candlestick'])
+ch = st.sidebar.radio("Select chart", ['Candlestick', 'Line'])
 
 
 # In[ ]:
@@ -155,7 +155,7 @@ data = get_data1(selected_stock)
 data = data[['OPEN', 'HIGH', 'LOW', 'CLOSE']]
 data1 = data.copy()
 data1['Delta'] = data1['CLOSE'].diff()
-data1['%'] = data1['CLOSE'].pct_change().round(3)
+data1['%'] = (data1['CLOSE'].pct_change()*100).round(2)
 
 # In[ ]:
 
@@ -217,23 +217,29 @@ st.write("✔️ Now Stock")
 b_clicked = st.button("↻")
 try:
     if b_clicked == False:
-            sto = stock_min_now(selected_stock)
+            sto = stock_min_now(selected_stock) 
             if sto.empty:
-                sto = data1[['CLOSE']].tail(1)
+                sto = data[['CLOSE']].tail(1)
             else:
-                sto['Delta'] = sto['CLOSE'].diff()
-                sto['%'] = sto['CLOSE'].pct_change().round(3)
-            st.write(sto.tail(1))
+                sto1 = data[['CLOSE']].tail(1)
+                sto2 = sto[['CLOSE']].tail(1)
+                s = pd.concat([sto1, sto2], ignore_index=False)
+                s['Delta'] = s['CLOSE'].diff()
+                s['%'] = (s['CLOSE'].pct_change() *100).round(2)
+            st.write(s.tail(1))
     else:
             sto = stock_min_now(selected_stock)
             if sto.empty:
-                sto = data1[['CLOSE']].tail(1)
+                sto = dat1[['CLOSE']].tail(1)
             else:
-                sto['Delta'] = sto['CLOSE'].diff()
-                sto['%'] = sto['CLOSE'].pct_change().round(3)
-            st.write(sto.tail(1))
+                sto1 = data[['CLOSE']].tail(1)
+                sto2 = sto[['CLOSE']].tail(1)
+                s = pd.concat([sto1, sto2], ignore_index=False)
+                s['Delta'] = s['CLOSE'].diff()
+                s['%'] = (s['CLOSE'].pct_change()*100).round(2)
+            st.write(s.tail(1))
 except:
-            st.write(data1[['CLOSE']].tail(1))
+            st.write(data[['CLOSE']].tail(1))
      #       sto = data1[['CLOSE']].tail(1)
 # In[ ]:
 
@@ -269,14 +275,13 @@ def plot_raw_data(quotes, selected_stock):
 
 
 st.write("Chart")
+if ch == 'Candlestick': 
+    plot_raw_data(quotes, selected_stock)
 if ch == 'Line':
     quotes[f'{selected_stock} Rate'] = quotes['CLOSE']
     quotes[f'{selected_stock} Rate'].plot();  
     plt.savefig(f'{selected_stock} Rate.png');
     st.line_chart(quotes[f'{selected_stock} Rate'])
-if ch == 'Candlestick': 
-    plot_raw_data(quotes, selected_stock)
-
 
 # In[ ]:
 
