@@ -420,7 +420,7 @@ def get_pred_data1(i):
             # dfh.set_index('DATE', inplace=True)
 
     
-    return dfd[['DATE', 'CLOSE']]
+    return dfh[['DATE', 'CLOSE']]
     
 if button_c:
         df_train = get_pred_data1(selected_stock)
