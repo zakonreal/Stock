@@ -405,11 +405,9 @@ if button_clicked:
 # def get_pred_data(i):
 #     path = f'{i}_day.csv'
 #     return pd.read_csv(path, low_memory=False)[['DATE', 'CLOSE']]
-# @st.cache  
-def get_pred_data1(i):
-    
-    data_start = data_start
-         with requests.Session() as session:
+
+def get_data1(i):
+    with requests.Session() as session:
             yesterday = date.today() - timedelta(days=1)
             data_end = str(yesterday)
             data = apimoex.get_board_candles(session, i, start = '2020-01-01', end = data_end)
@@ -419,9 +417,7 @@ def get_pred_data1(i):
             # dfh['DATE'] = pd.to_datetime(dfh['DATE'], format='%Y%m%d %H:%M:%S')
             # dfh.set_index('DATE', inplace=True)
 
-    
-         
-        return dfh[['DATE', 'CLOSE']]
+    return dfh[['DATE', 'CLOSE']]
     
 if button_c:
         df_train = get_pred_data1(selected_stock)
