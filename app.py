@@ -406,7 +406,7 @@ if button_clicked:
 #     path = f'{i}_day.csv'
 #     return pd.read_csv(path, low_memory=False)[['DATE', 'CLOSE']]
 
-def get_data1(i):
+def get_pred_data1(i):
     with requests.Session() as session:
             yesterday = date.today() - timedelta(days=1)
             data_end = str(yesterday)
