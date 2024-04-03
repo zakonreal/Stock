@@ -409,7 +409,7 @@ if button_clicked:
 def get_pred_data1(i):
     
     data_start = data_start
-    yesterwith requests.Session() as session:
+         with requests.Session() as session:
             yesterday = date.today() - timedelta(days=1)
             data_end = str(yesterday)
             data = apimoex.get_board_candles(session, i, start = '2020-01-01', end = data_end)
@@ -420,7 +420,8 @@ def get_pred_data1(i):
             # dfh.set_index('DATE', inplace=True)
 
     
-    return dfh[['DATE', 'CLOSE']]
+         
+        return dfh[['DATE', 'CLOSE']]
     
 if button_c:
         df_train = get_pred_data1(selected_stock)
