@@ -438,8 +438,8 @@ if button_c:
         st.write("###")
 
         st.write("Forecast")
-        forecast1 = forecast_1[['ds', 'yhat_upper']].copy()
-        forecast1 = forecast_1.rename(columns={"ds": "DATE", "yhat_upper": 'CLOSE'})
+        forecast1 = forecast_1[['ds', 'yhat']].copy()
+        forecast1 = forecast_1.rename(columns={"ds": "DATE", "yhat": 'CLOSE'})
         st.write(forecast1[['DATE', 'CLOSE']].tail(1))
 
         fig1 = plot_plotly(m, forecast)
